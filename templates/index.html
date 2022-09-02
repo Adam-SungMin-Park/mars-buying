@@ -14,7 +14,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 
-    <title>선착순 공동구매</title>
+    <title>First Come, First Serve!</title>
 
     <style>
         * {
@@ -121,24 +121,24 @@
             <label class="input-group-text" for="size">sq*ft</label>
             <select class="form-select" id="size">
                 <option selected>-- choose sq ft --</option>
-                <option value="10평">100</option>
-                <option value="20평">200</option>
-                <option value="30평">300</option>
-                <option value="40평">400</option>
-                <option value="50평">500</option>
+                <option value="100 sqft">100</option>
+                <option value="200 sqft">200</option>
+                <option value="300 sqft">300</option>
+                <option value="400 sqft">400</option>
+                <option value="500 sqft">500</option>
             </select>
         </div>
-        <button onclick="save_order()" type="button" class="btn btn-warning mybtn">주문하기</button>
+        <button onclick="save_order()" type="button" class="btn btn-warning mybtn">place order</button>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">이름</th>
-            <th scope="col">주소</th>
-            <th scope="col">평수</th>
+            <th scope="col">name</th>
+            <th scope="col">address</th>
+            <th scope="col">size</th>
         </tr>
         </thead>
-        <tbody class = "orderBody">
+        <tbody class="orderBody">
 
         </tbody>
     </table>
