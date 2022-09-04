@@ -17,6 +17,21 @@
     <title>First Come, First Serve!</title>
 
     <style>
+        .noBorder {
+            border-bottom: none;
+        }
+
+        .updateButton {
+            color: white;
+            border-radius: 15px;
+            background-color: transparent;
+        }
+        .table{
+            text-align:center;
+            
+        }
+
+
         * {
             font-family: 'Gowun Batang', serif;
             color: white;
@@ -67,17 +82,17 @@
                         let orderName = orderList[i].name
                         let orderAddress = orderList[i].addresss
                         let orderSize = orderList[i].size
-                        let orderPrice = Number(orderList[i].size.split(' ')[0])*0.5
+                        let orderPrice = Number(orderList[i].size.split(' ')[0]) * 0.5
                         let html = `<tr>
                                     <td>${orderName}</td>
                                     <td>${orderAddress}</td>
                                     <td>${orderSize}</td>
                                     <td>$${orderPrice}</td>
-                                    </tr>`
+                                    <td class = "noBorder"><button class = "updateButton">Update</button></td>
+                                    </tr>
+                                    `
                         $('.orderBody').append(html);
                     }
-
-
 
 
                 }
