@@ -29,6 +29,19 @@ def web_mars_post():
     return jsonify({'msg': 'order completed'})
 
 
+@app.route('/marsUpdate', methods =["POST"])
+def mars_update():
+    id_receive = int(request.form['id_give'])
+    name_receive = request.form['name_give']
+    address_receive = request.form['address_give']
+    size_receive = request.form['size_give']
+    db.mars.update_one({'orderId': id_receive}, {'$set': {'name': name_receive,
+                                                          'address': address_receive,
+                                                          'size': size_receive}})
+   
+    return jsonify({'msg':'updated!'})
+
+
 @app.route("/mars", methods=["GET"])
 def web_mars_get():
     allOrders = list(db.mars.find({}, {'_id': False}))
