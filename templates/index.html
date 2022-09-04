@@ -60,7 +60,7 @@
 
         .order {
             width: 500px;
-            margin: 60px auto 0px auto;
+            margin: 60px auto 0 auto;
             padding-bottom: 60px;
         }
 
@@ -115,21 +115,23 @@
             $('.table').hide()
             $('.order-info').hide()
             let idNumber = res
-
+            let newName = $('#newName').val()
+            let newSize = $('#newSize').val()
+            let newAddress = $('#newAddress').val()
             let html = `
-                 <div class="order-info-fix">
+                 <div class="order-info-fix" id = ${res}>
                     <div class="input-group mb-3">
                         <span class="input-group-text">name</span>
-                        <input id="name" type="text" class="form-control">
+                        <input id="newName" type="text" class="form-control">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">address</span>
-                        <input id="address" type="text" class="form-control">
+                        <input id="newAddress" type="text" class="form-control">
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="size">sq*ft</label>
-                        <select class="form-select" id="size">
-                            <option selected>-- choose sq ft --</option>
+                        <select class="form-select" id="newSize">
+                            <option selected >-- choose sq ft --</option>
                             <option value="100 sqft">100</option>
                             <option value="200 sqft">200</option>
                             <option value="300 sqft">300</option>
@@ -139,13 +141,27 @@
 
                     </div>
                      <div class = "buttonContainer">
-                            <button onclick="fixOrder(${idNumber})" class = "resubmitButton">Resubmit</button>
+                            <button onclick="$.ajax({
+                                                type:'POST',
+                                                url:'/marsUpdate',
+                                                data:{
+                                                    id_give : $('.order-info-fix')[0].id,
+                                                    name_give: $('#newName').val(),
+                                                    address_give: $('#newAddress').val(),
+                                                    size_give: $('#newSize').val()
+                                                },
+                                                success: function (response){
+                                                    alert(response['msg'])
+                                                    window.location.reload()
+                                                }
+                                            }) " class = "resubmitButton">Resubmit</button>
                         </div>
             `
             $('.order').append(html);
         }
 
         function fixOrder(res) {
+            console.log(res)
             $('.table').show()
             $('.order-info').show()
             $('.order-info-fix').hide()
