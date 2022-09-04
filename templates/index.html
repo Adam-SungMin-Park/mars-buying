@@ -67,16 +67,18 @@
                         let orderName = orderList[i].name
                         let orderAddress = orderList[i].addresss
                         let orderSize = orderList[i].size
+                        let orderPrice = Number(orderList[i].size.split(' ')[0])*0.5
                         let html = `<tr>
                                     <td>${orderName}</td>
                                     <td>${orderAddress}</td>
                                     <td>${orderSize}</td>
+                                    <td>$${orderPrice}</td>
                                     </tr>`
                         $('.orderBody').append(html);
                     }
 
 
-                    alert(orderName)
+
 
                 }
             });
@@ -133,9 +135,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">name</th>
-            <th scope="col">address</th>
-            <th scope="col">size</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Size</th>
+            <th scope="col">Price</th>
+
         </tr>
         </thead>
         <tbody class="orderBody">
