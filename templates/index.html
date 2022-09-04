@@ -26,9 +26,20 @@
             border-radius: 15px;
             background-color: transparent;
         }
-        .table{
-            text-align:center;
-            
+
+        .table {
+            text-align: center;
+
+        }
+
+        .buttonContainer {
+            text-align: center;
+        }
+
+        .resubmitButton {
+            background-color: transparent;
+            border-radius: 15px;
+            color: white;
         }
 
 
@@ -80,15 +91,16 @@
                     let orderList = response['orders'];
                     for (let i = 0; i < orderList.length; i++) {
                         let orderName = orderList[i].name
-                        let orderAddress = orderList[i].addresss
+                        let orderId = orderList[i].orderId
+                        let orderAddress = orderList[i].address
                         let orderSize = orderList[i].size
                         let orderPrice = Number(orderList[i].size.split(' ')[0]) * 0.5
-                        let html = `<tr>
+                        let html = `<tr class ="orderTable" id =${orderId}>
                                     <td>${orderName}</td>
                                     <td>${orderAddress}</td>
                                     <td>${orderSize}</td>
                                     <td>$${orderPrice}</td>
-                                    <td class = "noBorder"><button class = "updateButton">Update</button></td>
+                                    <td class = "noBorder"><button onclick="openUpdate(${orderId})" class = "updateButton">Update</button></td>
                                     </tr>
                                     `
                         $('.orderBody').append(html);
@@ -98,6 +110,48 @@
                 }
             });
         }
+
+        function openUpdate(res) {
+            $('.table').hide()
+            $('.order-info').hide()
+            let idNumber = res
+
+            let html = `
+                 <div class="order-info-fix">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">name</span>
+                        <input id="name" type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">address</span>
+                        <input id="address" type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="size">sq*ft</label>
+                        <select class="form-select" id="size">
+                            <option selected>-- choose sq ft --</option>
+                            <option value="100 sqft">100</option>
+                            <option value="200 sqft">200</option>
+                            <option value="300 sqft">300</option>
+                            <option value="400 sqft">400</option>
+                            <option value="500 sqft">500</option>
+                        </select>
+
+                    </div>
+                     <div class = "buttonContainer">
+                            <button onclick="fixOrder(${idNumber})" class = "resubmitButton">Resubmit</button>
+                        </div>
+            `
+            $('.order').append(html);
+        }
+
+        function fixOrder(res) {
+            $('.table').show()
+            $('.order-info').show()
+            $('.order-info-fix').hide()
+
+        }
+
 
         function save_order() {
             $.ajax({
