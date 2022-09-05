@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
+
 app = Flask(__name__)
 client = MongoClient('mongodb+srv://test:sparta@cluster0.o2cbi29.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -29,7 +30,7 @@ def web_mars_post():
     return jsonify({'msg': 'order completed'})
 
 
-@app.route('/marsUpdate', methods =["POST"])
+@app.route('/marsUpdate', methods=["POST"])
 def mars_update():
     id_receive = int(request.form['id_give'])
     name_receive = request.form['name_give']
@@ -38,9 +39,15 @@ def mars_update():
     db.mars.update_one({'orderId': id_receive}, {'$set': {'name': name_receive,
                                                           'address': address_receive,
                                                           'size': size_receive}})
-   
-    return jsonify({'msg':'updated!'})
 
+    return jsonify({'msg': 'updated!'})
+
+
+@app.route("/marsDelete", methods = ["DELETE"])
+def marsDelet():
+    id_receive = int(request.form['id_give'])
+    db.mars.delete_one({'orderId': id_receive})
+    return jsonify({'msg':'Deleted!'})
 
 @app.route("/mars", methods=["GET"])
 def web_mars_get():
