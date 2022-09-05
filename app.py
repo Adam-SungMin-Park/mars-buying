@@ -43,6 +43,12 @@ def mars_update():
     return jsonify({'msg': 'updated!'})
 
 
+@app.route("/marsDelete", methods = ["DELETE"])
+def marsDelet():
+    id_receive = int(request.form['id_give'])
+    db.mars.delete_one({'orderId': id_receive})
+    return jsonify({'msg':'Deleted!'})
+
 @app.route("/mars", methods=["GET"])
 def web_mars_get():
     allOrders = list(db.mars.find({}, {'_id': False}))
